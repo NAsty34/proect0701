@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ news_item.title }} :: {{ block.super }}
+
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: <a href="{{ news_item.category.get_absolute_url }}">{{ news_item.category }}</a>
+    </div>
+    <div class="card-body">
+        {% if item.photo %}
+        <img src="{{ news_item.photo.url }}" alt="" width="350" class="float-left">
+        {% else %}
+        <img src="https://fikiwiki.com/uploads/posts/2022-02/1644834177_35-fikiwiki-com-p-krasivie-kartinki-v-otlichnom-kachestve-40.jpg"
+             width="350" class="mr-3">
+        {% endif %}
+
+        <h5 class="card-title">{{ news_item.title }}</h5>
+        <p class="card-text">{{ news_item.content|safe|linebreaksbr }}</p>
+        <!-- truncatewords - обрезает текст до определенного количества символов-->
+
+
+    </div>
+    <div class="card-footer text-muted">
+        {{ news_item.created_at|date:"Y-m-d"}}
+        <!-- timesince - сколько времени прошло от создание до данного момента-->
+    </div>
+</div>
+{% endblock %}
